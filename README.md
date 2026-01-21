@@ -1,29 +1,80 @@
-# Create T3 App
+# Que
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A full-stack TypeScript application built with the T3 Stack.
 
-## What's next? How do I make an app with this?
+## Tech Stack
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+| Technology | Purpose |
+|------------|---------|
+| **Next.js 15** | React Framework (App Router + Turbo) |
+| **React 19** | UI Library |
+| **tRPC** | End-to-end Type-safe API |
+| **Drizzle ORM** | TypeScript ORM |
+| **Supabase** | PostgreSQL Database & Auth |
+| **TailwindCSS 4** | Utility-first CSS |
+| **shadcn/ui** | UI Component Library |
+| **Zod** | Schema Validation |
+| **Biome** | Linter & Formatter |
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Project Structure
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+```
+src/
+├── app/                    # Next.js App Router (Routes only)
+│   ├── api/trpc/           # tRPC HTTP endpoint
+│   ├── layout.tsx          # Root layout
+│   └── page.tsx            # Pages import from features/
+│
+├── features/               # Feature modules (business logic + UI)
+│   └── posts/
+│       ├── components/     # Feature-specific components
+│       └── index.ts        # Barrel export
+│
+├── components/
+│   ├── ui/                 # shadcn/ui base components
+│   └── shared/             # Reusable custom components
+│
+├── server/                 # Backend
+│   ├── api/                # tRPC routers
+│   │   ├── routers/        # Feature routers
+│   │   ├── root.ts         # Root router
+│   │   └── trpc.ts         # tRPC setup
+│   └── db/                 # Database (Drizzle + Supabase)
+│       ├── schema.ts       # Table definitions
+│       └── index.ts        # DB connection
+│
+├── trpc/                   # tRPC Clients
+│   ├── react.tsx           # Client Components (HTTP)
+│   └── server.ts           # Server Components (direct call)
+│
+└── lib/                    # Shared utilities
+```
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+```bash
+# Install dependencies
+pnpm install
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+# Start development server
+pnpm dev
+```
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## Available Scripts
 
-## How do I deploy this?
+| Script | Description |
+|--------|-------------|
+| `pnpm dev` | Start dev server (Turbo) |
+| `pnpm build` | Build for production |
+| `pnpm db:studio` | Open Drizzle Studio |
+| `pnpm db:push` | Sync schema to database |
+| `pnpm db:generate` | Generate migrations |
+| `pnpm check` | Lint with Biome |
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## Architecture Rules
+
+- **`src/app/`** - Routes only. Import components from `src/features/`.
+- **`src/features/`** - Feature modules with components, hooks, utils.
+- **`src/components/ui/`** - shadcn/ui components (generic, reusable).
+- **`@/trpc/react`** - For Client Components only.
+- **`@/trpc/server`** - For Server Components only.

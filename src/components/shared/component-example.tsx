@@ -31,7 +31,7 @@ import {
 	UserIcon,
 } from "lucide-react";
 import * as React from "react";
-import { Example, ExampleWrapper } from "@/components/example";
+import { Example, ExampleWrapper } from "@/components/shared/example";
 import {
 	AlertDialog,
 	AlertDialogAction,
