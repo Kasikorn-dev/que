@@ -1,0 +1,27 @@
+---
+trigger: always_on
+---
+
+# Feature-Based Architecture Rules
+
+This workspace follows a strict Feature-Based Architecture. All changes must adhere to these rules.
+
+## Directory Structure
+- **Core Logic:** All business logic and feature-specific UI MUST go in `src/features/<feature-name>/`.
+  - `components/`: UI components specific to the feature.
+  - `hooks/`: logic hooks specific to the feature.
+  - `utils.ts` / `types.ts`: Helpers and types specific to the feature.
+- **Routing:** `src/app/` is for Next.js App Router definitions ONLY.
+  - Pages (`page.tsx`) should import components from `src/features/`.
+  - Do NOT put complex logic or heavy UI components directly in `src/app/`.
+- **Shared UI:** Generic, reusable UI components go in `src/components/`.
+
+## Naming Conventions
+- **Files/Folders:** Use `kebab-case` (e.g., `user-profile/`, `create-post.tsx`).
+- **Components:** Use `PascalCase` (e.g., `UserProfile`, `CreatePost`).
+- **Functions/Hooks:** Use `camelCase` (e.g., `handleSubmit`, `useAuth`).
+
+## Data Fetching (tRPC)
+- **Server Components:** Import from `@/trpc/server`.
+- **Client Components:** Import from `@/trpc/react`.
+- **NEVER** mix these imports.
