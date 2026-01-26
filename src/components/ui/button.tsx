@@ -65,3 +65,9 @@ function Button({
 }
 
 export { Button, buttonVariants };
+export type { ButtonProps };
+
+type ButtonProps = React.ComponentProps<"button"> &
+	VariantProps<typeof buttonVariants> & {
+		asChild?: boolean;
+	};

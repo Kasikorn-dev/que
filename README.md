@@ -73,8 +73,21 @@ pnpm dev
 
 ## Architecture Rules
 
-- **`src/app/`** - Routes only. Import components from `src/features/`.
-- **`src/features/`** - Feature modules with components, hooks, utils.
-- **`src/components/ui/`** - shadcn/ui components (generic, reusable).
-- **`@/trpc/react`** - For Client Components only.
-- **`@/trpc/server`** - For Server Components only.
+## Architecture Rules
+
+This workspace follows a strict **Feature-Based Architecture**.
+
+### 1. Directory Structure
+- **`src/features/<feature-name>/`**: **Core Logic**. Business logic, UI components, hooks, and utils specific to a feature MUST go here.
+- **`src/app/`**: **Routing Only**. Next.js App Router definitions. Pages should import lazy-loaded components from `src/features/`.
+- **`src/components/`**: **Shared UI**. Generic, reusable components (e.g., shadcn/ui).
+
+### 2. Naming Conventions
+- **Files/Folders**: `kebab-case` (e.g., `user-profile/`, `create-post.tsx`)
+- **Components**: `PascalCase` (e.g., `UserProfile`, `CreatePost`)
+- **Functions/Hooks**: `camelCase` (e.g., `handleSubmit`, `useAuth`)
+
+### 3. Data Fetching (tRPC)
+- **Server Components**: Import from `@/trpc/server`
+- **Client Components**: Import from `@/trpc/react`
+- **NEVER** mix these imports to prevent boundary leaks.
