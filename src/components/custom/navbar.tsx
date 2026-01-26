@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/custom/mode-toggle";
+import { UserNav } from "@/features/auth/components/user-nav";
 
 import type { User } from "@supabase/supabase-js";
-import { signout } from "@/features/auth/actions";
 
 interface NavbarProps {
 	user: User | null;
@@ -24,9 +24,7 @@ export function Navbar({ user }: NavbarProps) {
 				<div className="flex items-center gap-2">
 					<ModeToggle />
 					{user ? (
-						<Button variant="ghost" size="sm" type="submit" onClick={signout}>
-							Sign Out
-						</Button>
+						<UserNav user={user} />
 					) : (
 						<>
 							<Button variant="ghost" size="sm" asChild>

@@ -7,7 +7,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { api } from "@/trpc/react";
 
 const stats = [
 	{ title: "Courses", value: "12", description: "Active courses" },
@@ -17,8 +16,6 @@ const stats = [
 ];
 
 export function DashboardContent() {
-	const { greeting } = api.post.hello.useSuspenseQuery({ text: "world1" });
-	console.log(greeting);
 	return (
 		<div className="flex flex-col gap-8">
 			{/* Welcome Header */}

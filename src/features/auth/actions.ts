@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { createSupabaseServerClient } from "@/lib/supabase/server";
@@ -51,6 +52,29 @@ export async function signup(input: SignupInput) {
 
 	revalidatePath("/dashboard", "layout");
 	redirect("/dashboard");
+}
+
+export async function loginWithGoogle() {
+	const supabase = await createSupabaseServerClient();
+	// Robust way to get the base URL
+	// In development, origin might be missing or weird, so we fallback to localhost
+	// In production, you should set NEXT_PUBLIC_APP_URL
+	const origin = (await headers()).get("origin") ?? "http://localhost:3000";
+
+	const { data, error } = await supabase.auth.signInWithOAuth({
+		provider: "google",
+		options: {
+			redirectTo: `${origin}/auth/callback`,
+		},
+	});
+
+	if (error) {
+		redirect("/error");
+	}
+
+	if (data.url) {
+		redirect(data.url);
+	}
 }
 
 export async function signout() {

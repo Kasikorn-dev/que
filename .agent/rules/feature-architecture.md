@@ -25,3 +25,9 @@ This workspace follows a strict Feature-Based Architecture. All changes must adh
 - **Server Components:** Import from `@/trpc/server`.
 - **Client Components:** Import from `@/trpc/react`.
 - **NEVER** mix these imports.
+- **Fetching Strategy:** Default to `prefetch` (Server) + `HydrateClient` + `useSuspenseQuery` (Client) for initial page loads.
+  - Exceptions: Deeply nested data, conditional fetching, or infinite lists (use `useQuery` or `useInfiniteQuery`).
+
+## Forms
+- **Validation:** MUST use **React Hook Form** + **Zod** for both Client-side and server-side validation.
+- **Schema:** Define Zod schemas in `schemas.ts` (or `types.ts`) to be shared between Client (Form) and Server (tRPC/Actions).

@@ -45,10 +45,11 @@ export async function updateSession(request: NextRequest) {
 		request.nextUrl.pathname === "/" ||
 		request.nextUrl.pathname.startsWith("/signin") ||
 		request.nextUrl.pathname.startsWith("/signup") ||
-		request.nextUrl.pathname.startsWith("/api/trpc") ||
 		request.nextUrl.pathname.startsWith("/privacy") ||
 		request.nextUrl.pathname.startsWith("/terms") ||
-		request.nextUrl.pathname.startsWith("/contact");
+		request.nextUrl.pathname.startsWith("/contact") ||
+		request.nextUrl.pathname.startsWith("/api/trpc") ||
+		request.nextUrl.pathname.startsWith("/auth/callback");
 
 	if (!user && !isPublicRoute) {
 		// no user, potentially respond by redirecting the user to the login page
