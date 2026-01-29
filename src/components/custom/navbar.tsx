@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/custom/mode-toggle";
-import { UserNav } from "@/features/auth/components/user-nav";
+import { UserNav } from "@/components/custom/user-nav";
 
 import type { User } from "@supabase/supabase-js";
 
@@ -22,9 +23,17 @@ export function Navbar({ user }: NavbarProps) {
 
 				{/* Right side */}
 				<div className="flex items-center gap-2">
-					<ModeToggle />
+					{!user && <ModeToggle />}
 					{user ? (
-						<UserNav user={user} />
+						<>
+							<Button variant="ghost" size="icon" asChild>
+								<Link href="/create">
+									<Plus className="h-5 w-5" />
+									<span className="sr-only">Create</span>
+								</Link>
+							</Button>
+							<UserNav user={user} />
+						</>
 					) : (
 						<>
 							<Button variant="ghost" size="sm" asChild>

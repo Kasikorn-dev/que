@@ -1,11 +1,11 @@
-# AIO (OneLife) Ecosystem
+# OneLife Ecosystem
 
 ## Core Philosophy
 **Human First, Technology Second, Nature Third.**
 Creating products and services that empower human potential in harmony with technology and nature.
 
 ## The Foundation (Core DNA)
-Every product and service in the AIO ecosystem is built upon these 4 non-negotiable pillars:
+Every product and service in the OneLife ecosystem is built upon these 4 non-negotiable pillars:
 1.  **Safety (ความปลอดภัย)**
 2.  **Privacy (ความเป็นส่วนตัว)**
 3.  **Trust (ความเชื่อใจ)**

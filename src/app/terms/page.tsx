@@ -47,9 +47,9 @@ export default function TermsPage() {
 							4. Intellectual Property
 						</h2>
 						<p className="mt-2 leading-relaxed text-muted-foreground">
-							All content, features, and functionality of Que are owned by AIO
-							and are protected by copyright, trademark, and other intellectual
-							property laws.
+							All content, features, and functionality of Que are owned by
+							Onelife and are protected by copyright, trademark, and other
+							intellectual property laws.
 						</p>
 					</div>
 

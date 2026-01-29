@@ -12,7 +12,7 @@ export function Footer() {
 						Que
 					</Link>
 					<p className="text-sm text-muted-foreground">
-						© {currentYear} AIO. All rights reserved.
+						© {currentYear} Onelife. All rights reserved.
 					</p>
 				</div>
 
