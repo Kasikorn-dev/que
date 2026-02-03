@@ -11,6 +11,7 @@ export const env = createEnv({
 			.enum(["development", "test", "production"])
 			.default("development"),
 		SUPABASE_DB_URL: z.string().url(),
+		GOOGLE_GENERATIVE_AI_API_KEY: z.string(),
 	},
 
 	/**
@@ -30,6 +31,7 @@ export const env = createEnv({
 	runtimeEnv: {
 		NODE_ENV: process.env.NODE_ENV,
 		SUPABASE_DB_URL: process.env.SUPABASE_DB_URL,
+		GOOGLE_GENERATIVE_AI_API_KEY: process.env.GOOGLE_GENERATIVE_AI_API_KEY,
 		NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
 		NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY:
 			process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,

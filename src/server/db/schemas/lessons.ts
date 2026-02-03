@@ -1,8 +1,22 @@
 import { relations, sql } from "drizzle-orm";
-import { index, integer, pgPolicy, text, varchar } from "drizzle-orm/pg-core";
+import {
+	index,
+	integer,
+	pgEnum,
+	pgPolicy,
+	text,
+	varchar,
+} from "drizzle-orm/pg-core";
 import { createTable, timestamps } from "../lib/utils";
 import { courses } from "./courses";
 import { games } from "./games";
+
+export const lessonStatusEnum = pgEnum("lesson_status", [
+	"pending",
+	"generating",
+	"completed",
+	"failed",
+]);
 
 export const lessons = createTable(
 	"lesson",
@@ -13,7 +27,8 @@ export const lessons = createTable(
 			.references(() => courses.id, { onDelete: "cascade" }),
 		order: integer("order").notNull(),
 		title: varchar("title", { length: 256 }).notNull(),
-		content: text("content").notNull(), // Markdown content
+		content: text("content"), // Markdown content (can be null initially)
+		status: lessonStatusEnum("status").default("pending").notNull(),
 		...timestamps,
 	},
 	(t) => [
