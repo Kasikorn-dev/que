@@ -26,7 +26,12 @@ export function Navbar({ user }: NavbarProps) {
 					{!user && <ModeToggle />}
 					{user ? (
 						<>
-							<Button variant="ghost" size="icon" asChild>
+							<Button
+								variant="ghost"
+								size="icon"
+								asChild
+								className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+							>
 								<Link href="/create">
 									<Plus className="h-5 w-5" />
 									<span className="sr-only">Create</span>

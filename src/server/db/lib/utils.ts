@@ -1,11 +1,18 @@
 import { sql } from "drizzle-orm";
-import { pgTableCreator, timestamp } from "drizzle-orm/pg-core";
+import { pgTableCreator, timestamp, uuid } from "drizzle-orm/pg-core";
 
 export const createTable = pgTableCreator((name: string) => `${name}`);
 
-export const timestamps = {
-	createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`).notNull(),
+export const baseTimestamps = {
+	createdAt: timestamp("created_at").default(sql`CURRENT_TIMESTAMP`)
+		.notNull(),
 	updatedAt: timestamp("updated_at")
 		.default(sql`CURRENT_TIMESTAMP`)
 		.$onUpdate(() => new Date()),
+};
+
+export const baseSchema = {
+	...baseTimestamps,
+	createdBy: uuid("created_by"),
+	updatedBy: uuid("updated_by"),
 };

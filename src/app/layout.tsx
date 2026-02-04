@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider, Navbar, Footer } from "@/components/custom";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
+import { env } from "process";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -21,6 +22,8 @@ export const metadata: Metadata = {
 export default async function RootLayout({
 	children,
 }: Readonly<{ children: React.ReactNode }>) {
+	console.log(env.SUPABASE_DB_URL);
+
 	const supabase = await createSupabaseServerClient();
 	const {
 		data: { user },

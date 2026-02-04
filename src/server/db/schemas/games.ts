@@ -1,6 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { index, integer, jsonb, pgEnum, pgPolicy } from "drizzle-orm/pg-core";
-import { createTable, timestamps } from "../lib/utils";
+import { baseSchema, createTable } from "../lib/utils";
 import { lessons } from "./lessons";
 import { courses } from "./courses";
 
@@ -16,7 +16,7 @@ export const games = createTable(
 		type: gameTypeEnum("type").notNull(),
 		data: jsonb("data").notNull(), // Unified Structure: { question, answer, options, explanation }
 		order: integer("order").notNull(),
-		...timestamps,
+		...baseSchema,
 	},
 	(t) => [
 		index("game_lesson_idx").on(t.lessonId),

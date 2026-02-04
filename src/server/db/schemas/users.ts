@@ -1,6 +1,6 @@
 import { pgPolicy, uuid, varchar } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
-import { createTable, timestamps } from "../lib/utils";
+import { baseTimestamps, createTable } from "../lib/utils";
 
 export const users = createTable(
 	"user",
@@ -9,7 +9,7 @@ export const users = createTable(
 		name: varchar("name", { length: 255 }),
 		email: varchar("email", { length: 255 }).notNull(),
 		image: varchar("image", { length: 255 }),
-		...timestamps,
+		...baseTimestamps,
 	},
 	(t) => [
 		pgPolicy("users_read_own_policy", {

@@ -15,7 +15,7 @@ export function CreateInput() {
 	const generateCourse = api.course.generate.useMutation({
 		onSuccess: (data) => {
 			toast.success("Course generated successfully! 🎉");
-			router.push(`/course/${data.courseId}`);
+			// router.push(`/course/${data.courseId}`);
 		},
 		onError: (error) => {
 			toast.error(`Error: ${error.message}`);
@@ -55,25 +55,26 @@ export function CreateInput() {
 				{/* Bottom: Actions */}
 				<div className="flex items-center justify-between mt-4">
 					{/* Left Action: Add Attachment */}
-					<Button
+					{/* <Button
 						variant="ghost"
 						size="icon"
 						disabled={isPending}
 						className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 					>
 						<Plus className="h-5 w-5" />
-					</Button>
+					</Button> */}
+					<div></div>
 
 					{/* Right Actions: Voice & Submit */}
 					<div className="flex items-center gap-2">
-						<Button
+						{/* <Button
 							variant="ghost"
 							size="icon"
 							disabled={isPending}
 							className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
 						>
 							<AudioWaveform className="h-5 w-5" />
-						</Button>
+						</Button> */}
 
 						<Button
 							size="icon"

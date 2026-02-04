@@ -7,11 +7,9 @@ import {
 	uuid,
 	varchar,
 } from "drizzle-orm/pg-core";
-import { createTable, timestamps } from "../lib/utils";
+import { baseSchema, createTable } from "../lib/utils";
 import { users } from "./users";
 import { lessons } from "./lessons";
-
-// --- Tables ---
 
 export const courses = createTable(
 	"course",
@@ -23,9 +21,7 @@ export const courses = createTable(
 		title: varchar("title", { length: 256 }).notNull(),
 		description: text("description"),
 		sourceText: text("source_text"), // The original input
-		...timestamps,
-		createdBy: uuid("created_by").references(() => users.id),
-		updatedBy: uuid("updated_by").references(() => users.id),
+		...baseSchema,
 	},
 	(t) => [
 		index("course_user_idx").on(t.userId),

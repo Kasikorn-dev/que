@@ -7,7 +7,7 @@ import {
 	text,
 	varchar,
 } from "drizzle-orm/pg-core";
-import { createTable, timestamps } from "../lib/utils";
+import { baseSchema, createTable } from "../lib/utils";
 import { courses } from "./courses";
 import { games } from "./games";
 
@@ -29,7 +29,7 @@ export const lessons = createTable(
 		title: varchar("title", { length: 256 }).notNull(),
 		content: text("content"), // Markdown content (can be null initially)
 		status: lessonStatusEnum("status").default("pending").notNull(),
-		...timestamps,
+		...baseSchema,
 	},
 	(t) => [
 		index("lesson_course_idx").on(t.courseId),
