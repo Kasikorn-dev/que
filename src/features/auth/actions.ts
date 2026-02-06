@@ -8,8 +8,8 @@ import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 import {
 	type LoginInput,
-	type SignupInput,
 	loginSchema,
+	type SignupInput,
 	signupSchema,
 } from "./schemas";
 
@@ -60,7 +60,6 @@ export async function loginWithGoogle() {
 	// In development, origin might be missing or weird, so we fallback to localhost
 	// In production, you should set NEXT_PUBLIC_APP_URL
 	const origin = (await headers()).get("origin") ?? "http://localhost:3000";
-
 	const { data, error } = await supabase.auth.signInWithOAuth({
 		provider: "google",
 		options: {
