@@ -2,13 +2,12 @@ import "@/styles/globals.css";
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-
-import { TRPCReactProvider } from "@/trpc/react";
-import { cn } from "@/lib/utils";
+import { Footer, Navbar, ThemeProvider } from "@/components/custom";
 import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider, Navbar, Footer } from "@/components/custom";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
-import { env } from "process";
+import { cn } from "@/lib/utils";
+import { TRPCReactProvider } from "@/trpc/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -34,13 +33,15 @@ export default async function RootLayout({
 					<ThemeProvider
 						attribute="class"
 						defaultTheme="system"
-						enableSystem
 						disableTransitionOnChange
+						enableSystem
 					>
-						<Navbar user={user} />
-						<div className="flex-1">{children}</div>
-						<Footer />
-						<Toaster />
+						<TooltipProvider>
+							<Navbar user={user} />
+							<div className="flex-1">{children}</div>
+							{!user && <Footer />}
+							<Toaster />
+						</TooltipProvider>
 					</ThemeProvider>
 				</TRPCReactProvider>
 			</body>

@@ -15,5 +15,9 @@ export default async function AuthenticatedLayout({
 		redirect("/signin");
 	}
 
-	return <>{children}</>;
+	return (
+		<main className="flex min-h-[calc(100vh-8rem)] justify-center px-4 py-8">
+			{children}
+		</main>
+	);
 }

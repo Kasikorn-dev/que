@@ -1,10 +1,10 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
-
+import { SubmitButton } from "@/components/custom";
 import {
 	Card,
 	CardContent,
@@ -14,11 +14,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { SubmitButton } from "@/components/custom";
-import { SocialAuth } from "./social-auth";
-
 import { login } from "../actions";
 import { type LoginInput, loginSchema } from "../schemas";
+import { SocialAuth } from "./social-auth";
 
 export function SignInForm() {
 	const {
@@ -50,29 +48,37 @@ export function SignInForm() {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+				<form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
 					<div className="flex flex-col gap-2">
 						<Label htmlFor="email">Email</Label>
 						<Input
 							id="email"
-							type="email"
 							placeholder="name@example.com"
+							type="email"
 							{...register("email")}
 						/>
 						{errors.email && (
-							<p className="text-sm text-destructive">{errors.email.message}</p>
+							<p className="text-destructive text-sm">{errors.email.message}</p>
 						)}
 					</div>
 					<div className="flex flex-col gap-2">
-						<Label htmlFor="password">Password</Label>
+						<div className="flex items-center justify-between">
+							<Label htmlFor="password">Password</Label>
+							<Link
+								className="text-primary text-xs hover:underline"
+								href="/forgot-password"
+							>
+								Forgot password?
+							</Link>
+						</div>
 						<Input
 							id="password"
-							type="password"
 							placeholder="••••••••"
+							type="password"
 							{...register("password")}
 						/>
 						{errors.password && (
-							<p className="text-sm text-destructive">
+							<p className="text-destructive text-sm">
 								{errors.password.message}
 							</p>
 						)}
@@ -96,11 +102,11 @@ export function SignInForm() {
 
 				<SocialAuth />
 
-				<div className="mt-6 text-center text-sm text-muted-foreground">
+				<div className="mt-6 text-center text-muted-foreground text-sm">
 					Don&apos;t have an account?{" "}
 					<Link
-						href="/signup"
 						className="text-primary underline-offset-4 hover:underline"
+						href="/signup"
 					>
 						Sign up
 					</Link>

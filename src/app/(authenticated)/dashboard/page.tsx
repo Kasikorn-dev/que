@@ -1,8 +1,13 @@
 import { DashboardContent } from "@/features/dashboard";
+import { HydrateClient, serverCaller } from "@/trpc/server";
+
 export default async function DashboardPage() {
+	// Prefetch courses
+	void serverCaller.course.getAll.prefetch();
+
 	return (
-		<main className="mx-auto min-h-[calc(100vh-8rem)] max-w-5xl px-4 py-8">
+		<HydrateClient>
 			<DashboardContent />
-		</main>
+		</HydrateClient>
 	);
 }

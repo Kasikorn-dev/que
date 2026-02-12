@@ -27,7 +27,8 @@ export const lessons = createTable(
 			.references(() => courses.id, { onDelete: "cascade" }),
 		order: integer("order").notNull(),
 		title: varchar("title", { length: 256 }).notNull(),
-		content: text("content"), // Markdown content (can be null initially)
+		description: text("description"),
+		content: text("content"),
 		status: lessonStatusEnum("status").default("pending").notNull(),
 		...baseSchema,
 	},

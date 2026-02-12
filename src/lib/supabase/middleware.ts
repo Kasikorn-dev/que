@@ -1,5 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
-import { NextResponse, type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { env } from "@/env";
 
 export async function updateSession(request: NextRequest) {
@@ -43,7 +43,16 @@ export async function updateSession(request: NextRequest) {
 
 	// 1. Define Route Groups for clarity
 	const toggleRoutes = ["/signin", "/signup"];
-	const publicRoutes = ["/", "/privacy", "/terms", "/contact", "/api", "/auth"];
+	const publicRoutes = [
+		"/",
+		"/privacy",
+		"/terms",
+		"/contact",
+		"/api",
+		"/auth",
+		"/forgot-password",
+		"/reset-password",
+	];
 
 	// 2. Check current path
 	const path = request.nextUrl.pathname;
@@ -61,6 +70,14 @@ export async function updateSession(request: NextRequest) {
 
 	// User tries to access auth route (signin/signup) -> Redirect to Dashboard
 	if (user && isAuthRoute) {
+		const url = request.nextUrl.clone();
+		url.pathname = "/dashboard";
+		return NextResponse.redirect(url);
+	}
+
+	// User tries to access marketing pages (home/pricing) -> Redirect to Dashboard
+	const marketingPages = ["/", "/pricing"];
+	if (user && marketingPages.includes(path)) {
 		const url = request.nextUrl.clone();
 		url.pathname = "/dashboard";
 		return NextResponse.redirect(url);

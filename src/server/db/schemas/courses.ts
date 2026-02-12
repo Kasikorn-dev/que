@@ -8,8 +8,8 @@ import {
 	varchar,
 } from "drizzle-orm/pg-core";
 import { baseSchema, createTable } from "../lib/utils";
-import { users } from "./users";
 import { lessons } from "./lessons";
+import { users } from "./users";
 
 export const courses = createTable(
 	"course",

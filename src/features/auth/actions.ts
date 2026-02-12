@@ -7,8 +7,12 @@ import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 import {
+	type ForgotPasswordInput,
+	forgotPasswordSchema,
 	type LoginInput,
 	loginSchema,
+	type ResetPasswordInput,
+	resetPasswordSchema,
 	type SignupInput,
 	signupSchema,
 } from "./schemas";
@@ -83,6 +87,44 @@ export async function signout() {
 
 	if (error) {
 		redirect("/error");
+	}
+
+	revalidatePath("/", "layout");
+	redirect("/signin");
+}
+
+export async function forgotPassword(input: ForgotPasswordInput) {
+	const supabase = await createSupabaseServerClient();
+
+	const { email } = forgotPasswordSchema.parse(input);
+
+	const origin = (await headers()).get("origin") ??
+		process.env.NEXT_PUBLIC_APP_URL ??
+		"http://localhost:3000";
+
+	// Redirect ไปที่ auth callback ก่อน แล้ว callback จะ redirect ไป reset-password
+	const { error } = await supabase.auth.resetPasswordForEmail(email, {
+		redirectTo: `${origin}/auth/callback?next=/reset-password`,
+	});
+
+	if (error) {
+		return { error: error.message };
+	}
+
+	return { success: true };
+}
+
+export async function resetPassword(input: ResetPasswordInput) {
+	const supabase = await createSupabaseServerClient();
+
+	const { password } = resetPasswordSchema.parse(input);
+
+	const { error } = await supabase.auth.updateUser({
+		password,
+	});
+
+	if (error) {
+		return { error: error.message };
 	}
 
 	revalidatePath("/", "layout");

@@ -1,4 +1,4 @@
-export * from "./users";
 export * from "./courses";
-export * from "./lessons";
 export * from "./games";
+export * from "./lessons";
+export * from "./users";

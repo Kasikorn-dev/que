@@ -14,7 +14,7 @@ export default function ContactPage() {
 	return (
 		<main className="mx-auto min-h-[calc(100vh-8rem)] max-w-3xl px-4 py-16">
 			<div className="mb-12 text-center">
-				<h1 className="text-3xl font-medium tracking-tight text-foreground">
+				<h1 className="font-medium text-3xl text-foreground tracking-tight">
 					Contact Us
 				</h1>
 				<p className="mt-2 text-muted-foreground">
@@ -39,9 +39,9 @@ export default function ContactPage() {
 							<Input
 								id="name"
 								name="name"
-								type="text"
 								placeholder="Your name"
 								required
+								type="text"
 							/>
 						</div>
 						<div className="flex flex-col gap-2">
@@ -49,9 +49,9 @@ export default function ContactPage() {
 							<Input
 								id="email"
 								name="email"
-								type="email"
 								placeholder="name@example.com"
 								required
+								type="email"
 							/>
 						</div>
 						<div className="flex flex-col gap-2">
@@ -60,11 +60,11 @@ export default function ContactPage() {
 								id="message"
 								name="message"
 								placeholder="How can we help you?"
-								rows={5}
 								required
+								rows={5}
 							/>
 						</div>
-						<Button type="submit" className="w-full">
+						<Button className="w-full" type="submit">
 							Send Message
 						</Button>
 					</form>
@@ -75,8 +75,8 @@ export default function ContactPage() {
 				<p className="text-muted-foreground">
 					Or email us directly at{" "}
 					<a
-						href="mailto:hello@que.app"
 						className="text-primary underline-offset-4 hover:underline"
+						href="mailto:hello@que.app"
 					>
 						hello@que.app
 					</a>

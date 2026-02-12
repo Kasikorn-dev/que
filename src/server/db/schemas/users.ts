@@ -1,5 +1,5 @@
-import { pgPolicy, uuid, varchar } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
+import { pgPolicy, uuid, varchar } from "drizzle-orm/pg-core";
 import { baseTimestamps, createTable } from "../lib/utils";
 
 export const users = createTable(

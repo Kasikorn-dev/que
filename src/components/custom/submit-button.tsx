@@ -1,8 +1,8 @@
 "use client";
 
+import { Loader2 } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
 
 interface SubmitButtonProps extends ButtonProps {
 	children: React.ReactNode;
@@ -19,7 +19,7 @@ export function SubmitButton({
 	const isSubmitting = isLoading || pending;
 
 	return (
-		<Button type="submit" disabled={isSubmitting || disabled} {...props}>
+		<Button disabled={isSubmitting || disabled} type="submit" {...props}>
 			{isSubmitting ? (
 				<>
 					<Loader2 className="mr-2 h-4 w-4 animate-spin" />

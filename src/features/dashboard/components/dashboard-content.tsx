@@ -1,82 +1,58 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
 
-const stats = [
-	{ title: "Courses", value: "12", description: "Active courses" },
-	{ title: "Progress", value: "68%", description: "Overall completion" },
-	{ title: "Streak", value: "7", description: "Days in a row" },
-	{ title: "Time", value: "24h", description: "Total learning time" },
-];
+import { Plus } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { api } from "@/trpc/react";
+import { CourseCard } from "./course-card";
 
 export function DashboardContent() {
-	return (
-		<div className="flex flex-col gap-8">
-			{/* Welcome Header */}
+	const [courses] = api.course.getAll.useSuspenseQuery();
 
-			<div className="flex flex-col gap-2">
-				<h1 className="text-3xl font-medium tracking-tight text-foreground">
-					Welcome back
-				</h1>
-				<p className="text-muted-foreground">
-					Here&apos;s an overview of your progress
-				</p>
+	if (courses.length === 0) {
+		return (
+			<div className="flex flex-col items-center justify-center rounded-lg p-8 text-center">
+				<div className="mx-auto flex max-w-md flex-col items-center gap-4">
+					<div className="rounded-full bg-primary/10 p-4">
+						<Plus className="size-8 text-primary" />
+					</div>
+					<h3 className="font-semibold text-xl">No courses yet</h3>
+					<p className="text-muted-foreground">
+						Start creating your first AI-powered course now!
+					</p>
+					<Button asChild size="lg">
+						<Link href="/create">
+							<Plus className="mr-2 size-4" />
+							Create Course
+						</Link>
+					</Button>
+				</div>
+			</div>
+		);
+	}
+
+	return (
+		<div className="space-y-6">
+			<div className="flex items-center justify-between">
+				<div>
+					<h2 className="font-bold text-2xl">My Courses</h2>
+					<p className="text-muted-foreground">
+						{courses.length} {courses.length === 1 ? "course" : "courses"}
+					</p>
+				</div>
+				<Button asChild>
+					<Link href="/create">
+						<Plus className="mr-2 size-4" />
+						Create Course
+					</Link>
+				</Button>
 			</div>
 
-			{/* Stats Grid */}
-			<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-				{stats.map((stat) => (
-					<Card key={stat.title} className="border-border bg-card">
-						<CardHeader className="pb-2">
-							<CardDescription>{stat.title}</CardDescription>
-							<CardTitle className="text-3xl text-card-foreground">
-								{stat.value}
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<p className="text-sm text-muted-foreground">
-								{stat.description}
-							</p>
-						</CardContent>
-					</Card>
+			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				{courses.map((course) => (
+					<CourseCard course={course} key={course.id} />
 				))}
 			</div>
-
-			{/* Continue Learning */}
-			<Card className="border-border bg-card">
-				<CardHeader>
-					<CardTitle className="text-card-foreground">
-						Continue Learning
-					</CardTitle>
-					<CardDescription>Pick up where you left off</CardDescription>
-				</CardHeader>
-				<CardContent className="flex flex-col gap-4">
-					<div className="flex items-center justify-between rounded-lg border border-border bg-background p-4">
-						<div className="flex flex-col gap-1">
-							<p className="font-medium text-foreground">
-								Introduction to TypeScript
-							</p>
-							<p className="text-sm text-muted-foreground">
-								Chapter 3: Advanced Types
-							</p>
-						</div>
-						<Button>Resume</Button>
-					</div>
-					<div className="flex items-center justify-between rounded-lg border border-border bg-background p-4">
-						<div className="flex flex-col gap-1">
-							<p className="font-medium text-foreground">React Fundamentals</p>
-							<p className="text-sm text-muted-foreground">Chapter 5: Hooks</p>
-						</div>
-						<Button variant="outline">Resume</Button>
-					</div>
-				</CardContent>
-			</Card>
 		</div>
 	);
 }

@@ -32,7 +32,7 @@ export function FeaturesSection() {
 	return (
 		<section className="mx-auto max-w-5xl px-4 py-24">
 			<div className="mb-12 text-center">
-				<h2 className="mb-4 text-3xl font-medium tracking-tight text-foreground">
+				<h2 className="mb-4 font-medium text-3xl text-foreground tracking-tight">
 					Built for learners
 				</h2>
 				<p className="text-muted-foreground">
@@ -43,8 +43,8 @@ export function FeaturesSection() {
 			<div className="grid gap-6 sm:grid-cols-2">
 				{features.map((feature) => (
 					<Card
-						key={feature.title}
 						className="border-border bg-card transition-colors hover:bg-accent"
+						key={feature.title}
 					>
 						<CardHeader>
 							<div className="mb-2 text-3xl">{feature.icon}</div>

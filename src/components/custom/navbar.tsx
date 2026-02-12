@@ -1,12 +1,11 @@
 "use client";
 
-import Link from "next/link";
+import type { User } from "@supabase/supabase-js";
 import { Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { ModeToggle } from "@/components/custom/mode-toggle";
 import { UserNav } from "@/components/custom/user-nav";
-
-import type { User } from "@supabase/supabase-js";
+import { Button } from "@/components/ui/button";
 
 interface NavbarProps {
 	user: User | null;
@@ -14,10 +13,13 @@ interface NavbarProps {
 
 export function Navbar({ user }: NavbarProps) {
 	return (
-		<header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur">
+		<header className="sticky top-0 z-50 w-full border-border border-b bg-background/95 backdrop-blur">
 			<nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
 				{/* Logo */}
-				<Link href="/" className="text-xl font-semibold text-foreground">
+				<Link
+					className="font-semibold text-foreground text-xl"
+					href={user ? "/dashboard" : "/"}
+				>
 					Que
 				</Link>
 
@@ -27,10 +29,10 @@ export function Navbar({ user }: NavbarProps) {
 					{user ? (
 						<>
 							<Button
-								variant="ghost"
-								size="icon"
 								asChild
-								className="h-10 w-10 rounded-full text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
+								className="h-10 w-10 rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+								size="icon"
+								variant="ghost"
 							>
 								<Link href="/create">
 									<Plus className="h-5 w-5" />
@@ -41,10 +43,10 @@ export function Navbar({ user }: NavbarProps) {
 						</>
 					) : (
 						<>
-							<Button variant="ghost" size="sm" asChild>
+							<Button asChild size="sm" variant="ghost">
 								<Link href="/signin">Sign In</Link>
 							</Button>
-							<Button size="sm" asChild>
+							<Button asChild size="sm">
 								<Link href="/signup">Get Started</Link>
 							</Button>
 						</>

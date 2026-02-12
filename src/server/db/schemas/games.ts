@@ -1,8 +1,8 @@
 import { relations, sql } from "drizzle-orm";
 import { index, integer, jsonb, pgEnum, pgPolicy } from "drizzle-orm/pg-core";
 import { baseSchema, createTable } from "../lib/utils";
-import { lessons } from "./lessons";
 import { courses } from "./courses";
+import { lessons } from "./lessons";
 
 export const gameTypeEnum = pgEnum("game_type", ["quiz", "flashcard"]);
 

@@ -1,9 +1,11 @@
 "use client";
 
+import type { User } from "@supabase/supabase-js";
+import { Check, Laptop, Moon, Sun } from "lucide-react";
+import Link from "next/link";
+import { useTheme } from "next-themes";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Check, Laptop, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -16,7 +18,6 @@ import {
 	DropdownMenuSubTrigger,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { type User } from "@supabase/supabase-js";
 import { signout } from "../../features/auth/actions";
 
 interface UserNavProps {
@@ -42,18 +43,18 @@ export function UserNav({ user }: UserNavProps) {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="ghost" className="relative h-8 w-8 rounded-full">
+				<Button className="relative h-8 w-8 rounded-full" variant="ghost">
 					<Avatar className="h-8 w-8">
-						<AvatarImage src={avatarUrl} alt={name} />
+						<AvatarImage alt={name} src={avatarUrl} />
 						<AvatarFallback>{initials}</AvatarFallback>
 					</Avatar>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56" align="end" forceMount>
+			<DropdownMenuContent align="end" className="w-56" forceMount>
 				<DropdownMenuLabel className="font-normal">
 					<div className="flex flex-col space-y-1">
-						<p className="text-sm font-medium leading-none">{name}</p>
-						<p className="text-xs leading-none text-muted-foreground">
+						<p className="font-medium text-sm leading-none">{name}</p>
+						<p className="text-muted-foreground text-xs leading-none">
 							{email}
 						</p>
 					</div>
@@ -61,7 +62,7 @@ export function UserNav({ user }: UserNavProps) {
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
 					<DropdownMenuItem>Profile</DropdownMenuItem>
-					<DropdownMenuItem>Settings</DropdownMenuItem>
+					{/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
 						<DropdownMenuSubContent>
@@ -82,6 +83,18 @@ export function UserNav({ user }: UserNavProps) {
 							</DropdownMenuItem>
 						</DropdownMenuSubContent>
 					</DropdownMenuSub>
+				</DropdownMenuGroup>
+				<DropdownMenuSeparator />
+				<DropdownMenuGroup>
+					<DropdownMenuItem asChild>
+						<Link href="/contact">Contact</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild>
+						<Link href="/privacy">Privacy</Link>
+					</DropdownMenuItem>
+					<DropdownMenuItem asChild>
+						<Link href="/terms">Terms</Link>
+					</DropdownMenuItem>
 				</DropdownMenuGroup>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem onClick={handleSignOut}>Log out</DropdownMenuItem>

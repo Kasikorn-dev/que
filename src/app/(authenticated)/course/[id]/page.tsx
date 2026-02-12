@@ -1,12 +1,12 @@
-import { serverCaller, HydrateClient } from "@/trpc/server";
-import { CourseView } from "@/features/course";
 import { notFound } from "next/navigation";
+import { CourseDetail } from "@/features/course";
+import { HydrateClient, serverCaller } from "@/trpc/server";
 
-export default async function CoursePage({
-	params,
-}: {
+interface CoursePageProps {
 	params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function CoursePage({ params }: CoursePageProps) {
 	const { id } = await params;
 	const courseId = Number.parseInt(id);
 
@@ -14,13 +14,16 @@ export default async function CoursePage({
 		notFound();
 	}
 
-	void serverCaller.course.getById.prefetch({ id: courseId });
+	// Prefetch course data
+	try {
+		void serverCaller.course.getById.prefetch({ id: courseId });
+	} catch {
+		notFound();
+	}
 
 	return (
 		<HydrateClient>
-			<div className="container py-8">
-				<CourseView id={courseId} />
-			</div>
+			<CourseDetail courseId={courseId} />
 		</HydrateClient>
 	);
 }

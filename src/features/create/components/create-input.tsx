@@ -1,21 +1,22 @@
 "use client";
 
+import { ArrowUp, Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowUp, AudioWaveform, Plus, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { Typewriter } from "@/components/custom/typewriter";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { api } from "@/trpc/react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 
 export function CreateInput() {
 	const [input, setInput] = useState("");
 	const router = useRouter();
 
-	const generateCourse = api.course.generate.useMutation({
+	const generateCourse = api.course.create.useMutation({
 		onSuccess: (data) => {
-			toast.success("Course generated successfully! 🎉");
-			// router.push(`/course/${data.courseId}`);
+			toast.success("Course created successfully! 🎉");
+			router.push(`/course/${data.courseId}`);
 		},
 		onError: (error) => {
 			toast.error(`Error: ${error.message}`);
@@ -29,31 +30,47 @@ export function CreateInput() {
 
 	const isPending = generateCourse.isPending;
 
+	const phrases = [
+		"What would you like to learn today?",
+		"Turn any topic into a course...",
+		"Start your learning journey...",
+		"Explore something new...",
+		"Master a new skill...",
+	];
+
 	return (
-		<div className="w-full max-w-3xl mx-auto">
-			<div className="flex flex-col min-h-[150px] p-4 bg-card rounded-2xl shadow-sm border border-border transition-all hover:shadow-md hover:border-ring/50">
+		<div className="mx-auto w-full max-w-3xl space-y-6">
+			{/* Animated Heading */}
+			<div className="text-center">
+				<h1 className="font-bold text-3xl text-foreground">
+					<Typewriter phrases={phrases} />
+				</h1>
+			</div>
+
+			{/* Input Card */}
+			<div className="flex min-h-[150px] flex-col rounded-2xl border border-border bg-card p-4 shadow-sm transition-all hover:border-ring/50 hover:shadow-md">
 				{/* Top: Textarea */}
 				<Textarea
-					value={input}
-					onChange={(e) => setInput(e.target.value)}
-					placeholder="Learn anything..."
+					className="w-full flex-1 resize-none border-0 bg-transparent p-2 text-lg shadow-none placeholder:text-muted-foreground focus-visible:ring-0 dark:bg-transparent"
 					disabled={isPending}
-					className="flex-1 w-full border-0 focus-visible:ring-0 shadow-none resize-none p-2 text-lg placeholder:text-muted-foreground bg-transparent dark:bg-transparent"
+					onChange={(e) => setInput(e.target.value)}
+					onInput={(e) => {
+						const target = e.target as HTMLTextAreaElement;
+						target.style.height = "auto";
+						target.style.height = `${target.scrollHeight}px`;
+					}}
 					onKeyDown={(e) => {
 						if (e.key === "Enter" && !e.shiftKey) {
 							e.preventDefault();
 							handleSubmit();
 						}
 					}}
-					onInput={(e) => {
-						const target = e.target as HTMLTextAreaElement;
-						target.style.height = "auto";
-						target.style.height = `${target.scrollHeight}px`;
-					}}
+					placeholder="Learn anything..."
+					value={input}
 				/>
 
 				{/* Bottom: Actions */}
-				<div className="flex items-center justify-between mt-4">
+				<div className="mt-4 flex items-center justify-between">
 					{/* Left Action: Add Attachment */}
 					{/* <Button
 						variant="ghost"
@@ -77,14 +94,14 @@ export function CreateInput() {
 						</Button> */}
 
 						<Button
-							size="icon"
-							onClick={handleSubmit}
-							disabled={!input.trim() || isPending}
 							className={`h-10 w-10 rounded-full transition-all duration-200 ${
 								input.trim()
 									? "bg-primary text-primary-foreground hover:bg-primary/90"
 									: "bg-muted text-muted-foreground"
 							}`}
+							disabled={!input.trim() || isPending}
+							onClick={handleSubmit}
+							size="icon"
 						>
 							{isPending ? (
 								<Loader2 className="h-5 w-5 animate-spin" />

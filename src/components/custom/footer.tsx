@@ -4,35 +4,35 @@ export function Footer() {
 	const currentYear = new Date().getFullYear();
 
 	return (
-		<footer className="border-t border-border bg-background">
+		<footer className="border-border border-t bg-background">
 			<div className="mx-auto flex max-w-5xl flex-col items-center gap-4 px-4 py-8 sm:flex-row sm:justify-between">
 				{/* Logo & Copyright */}
 				<div className="flex flex-col items-center gap-1 sm:items-start">
-					<Link href="/" className="text-lg font-semibold text-foreground">
+					<Link className="font-semibold text-foreground text-lg" href="/">
 						Que
 					</Link>
-					<p className="text-sm text-muted-foreground">
+					<p className="text-muted-foreground text-sm">
 						© {currentYear} Onelife. All rights reserved.
 					</p>
 				</div>
 
 				{/* Links */}
-				<div className="flex gap-6 text-sm text-muted-foreground">
+				<div className="flex gap-6 text-muted-foreground text-sm">
 					<Link
-						href="/privacy"
 						className="transition-colors hover:text-foreground"
+						href="/privacy"
 					>
 						Privacy
 					</Link>
 					<Link
-						href="/terms"
 						className="transition-colors hover:text-foreground"
+						href="/terms"
 					>
 						Terms
 					</Link>
 					<Link
-						href="/contact"
 						className="transition-colors hover:text-foreground"
+						href="/contact"
 					>
 						Contact
 					</Link>

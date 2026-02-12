@@ -4,7 +4,7 @@ export function HeroSection() {
 	return (
 		<section className="flex min-h-[80vh] flex-col items-center justify-center gap-8 px-4 text-center">
 			<div className="flex max-w-3xl flex-col gap-4">
-				<h1 className="text-4xl font-medium tracking-tight text-foreground sm:text-5xl md:text-6xl">
+				<h1 className="font-medium text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl">
 					Transform any input into{" "}
 					<span className="text-primary">active knowledge</span>
 				</h1>
@@ -15,10 +15,10 @@ export function HeroSection() {
 			</div>
 
 			<div className="flex flex-col gap-3 sm:flex-row">
-				<Button size="lg" className="min-w-[160px]">
+				<Button className="min-w-[160px]" size="lg">
 					Start Learning
 				</Button>
-				<Button variant="outline" size="lg" className="min-w-[160px]">
+				<Button className="min-w-[160px]" size="lg" variant="outline">
 					Learn More
 				</Button>
 			</div>
