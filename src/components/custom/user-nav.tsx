@@ -61,7 +61,7 @@ export function UserNav({ user }: UserNavProps) {
 				</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuGroup>
-					<DropdownMenuItem>Profile</DropdownMenuItem>
+					{/* <DropdownMenuItem>Profile</DropdownMenuItem> */}
 					{/* <DropdownMenuItem>Settings</DropdownMenuItem> */}
 					<DropdownMenuSub>
 						<DropdownMenuSubTrigger>Theme</DropdownMenuSubTrigger>
