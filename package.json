@@ -54,7 +54,6 @@
 		"remark-breaks": "^4.0.0",
 		"remark-gfm": "^4.0.1",
 		"server-only": "^0.0.1",
-		"shadcn": "^3.7.0",
 		"sonner": "^2.0.7",
 		"superjson": "^2.2.1",
 		"tailwind-merge": "^3.4.0",
@@ -71,6 +70,7 @@
 		"@types/react-dom": "^19.0.0",
 		"drizzle-kit": "^0.30.5",
 		"postcss": "^8.5.3",
+		"shadcn": "^3.8.5",
 		"supabase": "^2.75.1",
 		"tailwindcss": "^4.0.15",
 		"typescript": "^5.8.2"
