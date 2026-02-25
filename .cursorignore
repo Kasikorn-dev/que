@@ -1,0 +1,24 @@
+# Dependencies
+node_modules
+
+# Next.js build
+.next
+out
+build
+
+# Lock files (optional - uncomment if you want faster indexing)
+# pnpm-lock.yaml
+
+# Environment & secrets
+.env
+.env.*
+
+# Testing
+# coverage
+
+# Supabase local
+.supabase
+
+# Misc
+# *.tsbuildinfo
+# .vercel
